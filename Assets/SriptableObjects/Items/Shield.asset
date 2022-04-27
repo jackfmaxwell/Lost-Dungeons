@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Shield
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: -719212585148818415, guid: 83a9ab9816127284ab8c5c321bbcb853,
+    type: 3}
+  itemName: Shield
+  itemIndex: 7
+  itemDescription: 'Blocks '
+  itemRarity: 0
+  itemClass: 6
+  itemIdle: {fileID: 0}
+  itemRun: {fileID: 0}
+  itemSwing: {fileID: 0}
+  itemBowShot: {fileID: 0}
+  itemBlock: {fileID: 7400000, guid: 226dd58b4bc51ac47b86c8fe5d3d29ae, type: 2}
+  itemStaffAttack: {fileID: 0}
+  weaponDamage: 0
+  armour: 40
+  critChance: 0
+  critDamage: 0
+  skillDamage: 0
+  skillHaste: 0
+  talents: []

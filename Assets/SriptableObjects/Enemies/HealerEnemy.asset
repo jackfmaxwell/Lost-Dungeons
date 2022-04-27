@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ef4361f7d766a41b475c6dc82ff555, type: 3}
+  m_Name: HealerEnemy
+  m_EditorClassIdentifier: 
+  health: 30
+  idle: {fileID: 7400000, guid: ac2bf1e202429f74d99c906b3aa8796c, type: 2}
+  run: {fileID: 7400000, guid: 720b70ba6b2453040a635d7ea79771f3, type: 2}
+  attack: {fileID: 7400000, guid: 43f9dd37bd9ac084aa950367d77c7581, type: 2}
+  bowShot: {fileID: 7400000, guid: 97eece25dd010f0479964f080e0e6153, type: 2}
+  armour: 5
+  damage: 0
+  critChance: 0
+  critDamage: 0
+  activeBuffsDebuffs: []

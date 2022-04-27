@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b063af0ce4405584e9797df47e32ba95, type: 3}
+  m_Name: Skill_Shield
+  m_EditorClassIdentifier: 
+  skillName: Shield Ring
+  skillDescription: Places a shield that buffs you and your allies armour.
+  skillIcon: {fileID: 21300000, guid: e14b6554c7e3e8d4d8ac39fec9d5c7d9, type: 3}
+  skillIndex: 2
+  type: 01000000
+  skillBuffs:
+  - {fileID: 11400000, guid: ae74ad73db23f47408338402b2b5e6f3, type: 2}
+  buffDuration:
+  - 5
+  target: 
+  objectType:
+  - obj: 2
+    duration: 10
+  action: 
+  skillDuration: 10
+  skillCooldown: 2

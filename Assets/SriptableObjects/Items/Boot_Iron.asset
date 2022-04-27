@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Boot_Iron
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: 6700494630637749932, guid: ce134f8c1b1da13478c0b438c558055d,
+    type: 3}
+  itemName: Iron Boots
+  itemIndex: 3
+  itemDescription: Always a solid choice
+  itemRarity: 0
+  itemClass: 2
+  itemIdle: {fileID: 7400000, guid: fc989e10b0b28944b8c751aba4b4599a, type: 2}
+  itemRun: {fileID: 7400000, guid: ee08031fb2aa95a4b9675939d750b1d8, type: 2}
+  itemSwing: {fileID: 7400000, guid: c6e2bfb220904624faf675140146d749, type: 2}
+  itemBowShot: {fileID: 7400000, guid: aa2836aac2d16834a8ec41ee5803cb01, type: 2}
+  itemBlock: {fileID: 7400000, guid: e82534e89d91f9b429e188aa5cf0ae1e, type: 2}
+  weaponDamage: 0
+  armour: 1
+  critChance: 0
+  critDamage: 0
+  skillDamage: 5
+  skillHaste: 0
+  talents: []

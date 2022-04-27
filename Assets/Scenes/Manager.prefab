@@ -1,0 +1,320 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8475030151319998294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8475030151319998296}
+  - component: {fileID: 8475030151319998297}
+  - component: {fileID: 8475030151319998299}
+  - component: {fileID: 8475030151319998298}
+  - component: {fileID: 8475030151319998301}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8475030151319998296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475030151319998294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8475030151319998297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475030151319998294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1fe19b44232c1542b0109052e123371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8475030151319998299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475030151319998294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9565f89a9a4cbc4e80237934214ffb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  es: {fileID: 0}
+  inv: {fileID: 0}
+  currentPanel: 0
+  movementRate: 1700
+  ui: {fileID: 0}
+  inventoryFirstSelect: {fileID: 0}
+  skillsFirstSelect: {fileID: 0}
+  movingL: 0
+  movingR: 0
+  itemSlots: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  highlightSlot: 0
+  currentHighlightItemIndex: 0
+  cantEquip: 0
+  itemFrame: {fileID: 0}
+  itemRarity: {fileID: 0}
+  common: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 1}
+  uncommon: {r: 0.4408152, g: 0.735849, b: 0.46093303, a: 1}
+  rare: {r: 0.2753649, g: 0.40944597, b: 0.6415094, a: 1}
+  legendary: {r: 0.58694404, g: 0.30647027, b: 0.6698113, a: 1}
+  exotic: {r: 0.9056604, g: 0.65706986, b: 0.16660735, a: 1}
+  artifact: {r: 0.12519169, g: 1, b: 0, a: 1}
+  energized: {r: 0, g: 0.93551326, b: 1, a: 1}
+  empty: {r: 0, g: 0, b: 0, a: 0}
+  itemName: {fileID: 0}
+  itemDescription: {fileID: 0}
+  itemDamage: {fileID: 0}
+  itemCritChance: {fileID: 0}
+  itemCritDamage: {fileID: 0}
+  itemSkillDamage: {fileID: 0}
+  itemSkillHaste: {fileID: 0}
+  talent1Name: {fileID: 0}
+  talent1Description: {fileID: 0}
+  talent2Name: {fileID: 0}
+  talent2Description: {fileID: 0}
+  LRUequippedweaponindex: 3
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  itemRars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  helmetFrame: {fileID: 0}
+  chestFrame: {fileID: 0}
+  bootFrame: {fileID: 0}
+  swordFrame: {fileID: 0}
+  bowFrame: {fileID: 0}
+  helmetRar: {fileID: 0}
+  chestRar: {fileID: 0}
+  bootRar: {fileID: 0}
+  swordRar: {fileID: 0}
+  bowRar: {fileID: 0}
+  meleeDamageT: {fileID: 0}
+  rangedDamageT: {fileID: 0}
+  critChanceT: {fileID: 0}
+  critDamageT: {fileID: 0}
+  skillDamageT: {fileID: 0}
+  skillHasteT: {fileID: 0}
+  armourT: {fileID: 0}
+--- !u!114 &8475030151319998298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475030151319998294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16e32b08d53834a98d63dff149a4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database:
+  - {fileID: 11400000, guid: ab8db184a19b0dd4ba960e556c67f78d, type: 2}
+  - {fileID: 11400000, guid: c66921d57512cca42be7ea438b92b635, type: 2}
+  - {fileID: 11400000, guid: 661e817c78714274a884552547ad38bc, type: 2}
+  - {fileID: 11400000, guid: 5a11cefd5d77dfd4c9d87e1cc38bd45c, type: 2}
+  - {fileID: 11400000, guid: 903b7cb9310e64f4295a28ed94744b00, type: 2}
+  - {fileID: 11400000, guid: 517386c0050965449b40604d6ebb269c, type: 2}
+  skilldatabase:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f37ed2865ae4a75468a5c79648fdfd03, type: 2}
+--- !u!114 &8475030151319998301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8475030151319998294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860f0a8002a9b284288e270bbdaf590f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invUI: {fileID: 8475030151319998299}
+  inv: {fileID: 0}
+  skillIcon: {fileID: 0}
+  skillTitle: {fileID: 0}
+  skillDescription: {fileID: 0}
+  skillCooldown: {fileID: 0}
+  skillRequirement: {fileID: 0}
+  skillSlotIndexs: 010000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  highlightedSlot: 0
+  currentSkillIndex: 0
+  selectSlotTip: {fileID: 0}
+  sameSkillTip: {fileID: 0}
+  skill1Image: {fileID: 0}
+  skill2Image: {fileID: 0}
+  skillSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  selectingASkill: 0

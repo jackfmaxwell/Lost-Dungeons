@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Helmet_Prometheus
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: -3373649285336574180, guid: f45224676110f5a4bb39de4b5bf8196c,
+    type: 3}
+  itemName: Mask of Prometheus
+  itemIndex: 6
+  itemDescription: '"Light the Path"'
+  itemRarity: 6
+  itemClass: 0
+  itemIdle: {fileID: 7400000, guid: 243d00173d1065b4493495451d11524b, type: 2}
+  itemRun: {fileID: 7400000, guid: 8a61ce7a86b23cd49bc19902f932ae7e, type: 2}
+  itemSwing: {fileID: 7400000, guid: 2c0c4a9b754d41646b96b5272fc2cbfd, type: 2}
+  itemBowShot: {fileID: 7400000, guid: 06a11b3ff29fd7440a7a63eaaad904fe, type: 2}
+  itemBlock: {fileID: 7400000, guid: c830fe3f38ef356448c8dbafcd5559cf, type: 2}
+  weaponDamage: 0
+  armour: 15
+  critChance: 0
+  critDamage: 0
+  skillDamage: 0
+  skillHaste: 10
+  talents:
+  - {fileID: 0}
+  - {fileID: 0}

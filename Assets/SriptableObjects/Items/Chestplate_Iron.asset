@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Chestplate_Iron
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: -3034608773217119197, guid: 0ca0df1e61583984db5e4edacba6b0b3,
+    type: 3}
+  itemName: Iron Chestplate
+  itemIndex: 2
+  itemDescription: Always a solid choice
+  itemRarity: 0
+  itemClass: 1
+  itemIdle: {fileID: 7400000, guid: c923c295ea877c744870268f4dfd3e3f, type: 2}
+  itemRun: {fileID: 7400000, guid: 3a4c946bf560b604682a4bdc5a062952, type: 2}
+  itemSwing: {fileID: 7400000, guid: 82692ab9e1185c740af2f0d364f490d8, type: 2}
+  itemBowShot: {fileID: 7400000, guid: 2498477c597bccb4eb04b39d2e3a52b6, type: 2}
+  itemBlock: {fileID: 7400000, guid: 7697d73f30813be4084dae123cdac01d, type: 2}
+  weaponDamage: 0
+  armour: 3
+  critChance: 1
+  critDamage: 4
+  skillDamage: 0
+  skillHaste: 0
+  talents: []

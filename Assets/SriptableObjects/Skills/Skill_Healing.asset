@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b063af0ce4405584e9797df47e32ba95, type: 3}
+  m_Name: Skill_Healing
+  m_EditorClassIdentifier: 
+  skillName: Healing Ring
+  skillDescription: Places a ring of healing that you and all allies in side every
+    second.
+  skillIcon: {fileID: 21300000, guid: fa406cf5dd5ceb740a4ff7405c91e194, type: 3}
+  skillIndex: 1
+  type: 01000000
+  skillBuffs:
+  - {fileID: 11400000, guid: b434a530737cbdf4b82da9d5238af932, type: 2}
+  buffDuration:
+  - 10
+  target: 02000000
+  objectType:
+  - obj: 1
+    duration: 10
+    numberOrPercent: 1
+    skillAmount: 10
+  action: 
+  skillDuration: 10
+  skillCooldown: 2

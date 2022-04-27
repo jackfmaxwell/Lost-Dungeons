@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7359635599949244048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7359635599949244055}
+  - component: {fileID: 7359635599060323272}
+  - component: {fileID: 7359635600376807098}
+  - component: {fileID: 7359635599060323275}
+  m_Layer: 0
+  m_Name: DungeonSceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &7359635599949244055
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359635599949244048}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7359635599060323272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359635599949244048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1fe19b44232c1542b0109052e123371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7359635600376807098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359635599949244048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd16e32b08d53834a98d63dff149a4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database:
+  - {fileID: 11400000, guid: ab8db184a19b0dd4ba960e556c67f78d, type: 2}
+  - {fileID: 11400000, guid: c66921d57512cca42be7ea438b92b635, type: 2}
+  - {fileID: 11400000, guid: 661e817c78714274a884552547ad38bc, type: 2}
+  - {fileID: 11400000, guid: 5a11cefd5d77dfd4c9d87e1cc38bd45c, type: 2}
+  - {fileID: 11400000, guid: 903b7cb9310e64f4295a28ed94744b00, type: 2}
+  - {fileID: 11400000, guid: 517386c0050965449b40604d6ebb269c, type: 2}
+  - {fileID: 11400000, guid: 837d326113b2a5740983de2033464f20, type: 2}
+  skilldatabase:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: f37ed2865ae4a75468a5c79648fdfd03, type: 2}
+--- !u!114 &7359635599060323275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7359635599949244048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15b8a240abf44164397b39234f1f453a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inv: {fileID: 0}
+  dropPrefab: {fileID: 4972706679833169067, guid: bb17a2b081f1be941bddb4898d10b20b,
+    type: 3}
+  commonC: {r: 19.468573, g: 19.468573, b: 19.468573, a: 1}
+  uncommonC: {r: 2.9559612, g: 17.939627, b: 2.1405237, a: 1}
+  rareC: {r: 0.8873497, g: 2.573314, b: 10.736931, a: 1}
+  legendaryC: {r: 9.479463, g: 0, b: 25.992073, a: 1}
+  exoticC: {r: 23.049574, g: 14.405549, b: 0, a: 1}
+  artifactC: {r: 0, g: 19.468573, b: 2.5702038, a: 1}
+  energizedC: {r: 0, g: 15.289455, b: 19.468573, a: 1}
+  commonC2: {r: 0, g: 0, b: 0, a: 0}
+  uncommonC2: {r: 0, g: 0, b: 0, a: 0}
+  rareC2: {r: 1, g: 1, b: 1, a: 1}
+  legendaryC2: {r: 1, g: 1, b: 1, a: 1}
+  exoticC2: {r: 9.734288, g: 4.8926263, b: 0, a: 1}
+  artifactC2: {r: 0.33117065, g: 7.78251, b: 0.08279266, a: 1}
+  energizedC2: {r: 0, g: 0.6798865, b: 17.624323, a: 1}
+  dropRarity: 0

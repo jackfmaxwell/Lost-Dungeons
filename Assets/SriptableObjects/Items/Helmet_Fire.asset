@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Helmet_Fire
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: -4590469034416397085, guid: 904d70ecfa384a84f9966acf3278b083,
+    type: 3}
+  itemName: Fire Helm
+  itemIndex: 1
+  itemDescription: Forged in fires of Pompei
+  itemRarity: 1
+  itemClass: 0
+  itemIdle: {fileID: 7400000, guid: 85fed5cd8ae51094693f57c471577dee, type: 2}
+  itemRun: {fileID: 7400000, guid: 77f4e4f8c1ca0c44c985d44e703ae2e5, type: 2}
+  itemSwing: {fileID: 7400000, guid: bce9f839813785f46b70779ab1ab4687, type: 2}
+  itemBowShot: {fileID: 7400000, guid: ecfd39c526702af4784ac6815b572b14, type: 2}
+  itemBlock: {fileID: 7400000, guid: 8c26d1bdd958e244c98d9e97fd56077b, type: 2}
+  weaponDamage: 0
+  armour: 2
+  critChance: 10
+  critDamage: 25
+  skillDamage: 0
+  skillHaste: 0
+  talents: []

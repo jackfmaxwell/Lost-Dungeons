@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ef9b519fd6bb547bfc58f68e9d4d8e, type: 3}
+  m_Name: Sword_Eir
+  m_EditorClassIdentifier: 
+  itemPicture: {fileID: 21300000, guid: f16e38920d8f8b94da749bfc12d972fb, type: 3}
+  itemName: Dying Sword of Eir
+  itemIndex: 9
+  itemDescription: The weapon used to destory worlds.
+  itemRarity: 6
+  itemClass: 3
+  itemIdle: {fileID: 0}
+  itemRun: {fileID: 0}
+  itemSwing: {fileID: 0}
+  itemBowShot: {fileID: 0}
+  itemBlock: {fileID: 0}
+  weaponDamage: 60
+  armour: 0
+  critChance: 50
+  critDamage: 20
+  skillDamage: 0
+  skillHaste: 15
+  talents: []
