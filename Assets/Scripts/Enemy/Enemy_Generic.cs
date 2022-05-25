@@ -82,6 +82,7 @@ public class Enemy_Generic : NetworkBehaviour
     [Header("Behaviour Bools")]
     public bool followEnabled = true; //will the AI follow the path given by A*
     public bool plotPath = true; //Will the AI plot a path to the target
+    [SyncVar]
     public bool stunned = false;
     [Space(15)]
     public bool jumpEnabled = true; //Will the AI jump if the path asks for it
@@ -104,7 +105,7 @@ public class Enemy_Generic : NetworkBehaviour
     [Header("Animation/Visuals")]
     protected EnemyAnimationManager enemyAnimations;
     protected SpriteRenderer sprite;
-    public NumberPopupManager numberPopupManager; //reference to the number p
+    private NumberPopupManager numberPopupManager; //reference to the number p
     public LootDropManager lootDrops;
 
     [Header("Health and Stats")]
@@ -120,18 +121,19 @@ public class Enemy_Generic : NetworkBehaviour
     [Serializable]
     public class ActiveBuffDebuff
     {
-        public BuffDebuffObjectScript buffDebuff;
+        public BuffDebuff buffDebuff;
         public float duration; // counts down
         public float totalDuration;
+        public uint id;
 
-        public ActiveBuffDebuff(BuffDebuffObjectScript bD, float dur)
+        public ActiveBuffDebuff(BuffDebuff buffD, uint sourceID)
         {
-            buffDebuff = bD;
-            duration = dur;
-            totalDuration = dur;
+            buffDebuff = buffD;
+            duration = buffD.buffDuration;
+            totalDuration = duration;
+            id = sourceID;
         }
     }
-
     public List<ActiveBuffDebuff> activeBuffsDebuffs = new List<ActiveBuffDebuff>();
 
     //This method initializes reference classes, and initalizes the target and allies lists
@@ -141,6 +143,7 @@ public class Enemy_Generic : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         enemyAnimations = GetComponent<EnemyAnimationManager>();
+        numberPopupManager = GameObject.Find("PopupNumberManager").GetComponent<NumberPopupManager>();
 
         currentHealth = enemyDetails.health;
 
@@ -277,14 +280,15 @@ public class Enemy_Generic : NetworkBehaviour
 
     public void stunEnemy()
     {
+        stunned = true;
         StartCoroutine(stunEffect());
     }
     private IEnumerator stunEffect()
     {
-        stunned = true;
+        
         CmdUpdateDesiredMovement(new Vector2(0f, 0f));
         //set to 0 to stop movement (animation specifcally)
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         stunned = false;
         //we suspended these functions from normally operating 
         backingUp = false;
@@ -339,12 +343,12 @@ public class Enemy_Generic : NetworkBehaviour
                     if (topPriorityTarget.position.x > this.transform.position.x + 0.05f)
                     {
                         if(isServer)
-                            flipSprite(1f);
+                            RpcflipSprite(1f);
                     }
                     else if (topPriorityTarget.position.x < this.transform.position.x - 0.05f)
                     {
                         if (isServer)
-                            flipSprite(-1f);
+                            RpcflipSprite(-1f);
                     }
                 }
             }
@@ -360,7 +364,7 @@ public class Enemy_Generic : NetworkBehaviour
     }
 
     [ClientRpc]
-    void flipSprite(float dir)
+    void RpcflipSprite(float dir)
     {
         transform.localScale = new Vector3(dir * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
@@ -495,24 +499,24 @@ public class Enemy_Generic : NetworkBehaviour
 
 
     //Functions to add and remove buffs
-    public void addBuffDebuff(BuffDebuffObjectScript buffDebuff, float duration)
+    public void addBuffDebuff(BuffDebuff buffDebuff, uint sourceID)
     {
-        
         //is this buff already in the list?
         bool contained = false;
-        ActiveBuffDebuff item = new ActiveBuffDebuff(buffDebuff, duration);
+
         foreach (ActiveBuffDebuff buff in activeBuffsDebuffs)
         {
-            if (buff.buffDebuff == buffDebuff)
+            if (buff.id == sourceID)
             {
                 //we already have this buff in the list
                 //refresh the duration
-                buff.duration = duration;
+                buff.duration = buff.totalDuration;
                 contained = true;
             }
         }
         if (!contained)
         {
+            ActiveBuffDebuff item = new ActiveBuffDebuff(buffDebuff, sourceID);
             activeBuffsDebuffs.Add(item);
         }
 
@@ -528,8 +532,8 @@ public class Enemy_Generic : NetworkBehaviour
         List<ActiveBuffDebuff> toberemoved = new List<ActiveBuffDebuff>();
         foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
         {
-            BuffDebuffObjectScript buff = item.buffDebuff;
-            if (buff is BuffDebuffObjectScript)
+            BuffDebuff buff = item.buffDebuff;
+            if (buff is BuffDebuff)
             {
                 if (buff.overTime)
                 {
@@ -537,16 +541,15 @@ public class Enemy_Generic : NetworkBehaviour
                     if (buff.increaseorDecrease)
                     {
                         //this buff increases the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.health)
+                        if (buff.statToModify == BuffDebuff.stats.health)
                         {
                             heal(buff.amount);
                         }
-
                     }
                     else
                     {
                         //this buff increases the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.health)
+                        if (buff.statToModify == BuffDebuff.stats.health)
                         {
                             applyHealthDamage(buff.amount);
                         }
@@ -575,66 +578,6 @@ public class Enemy_Generic : NetworkBehaviour
         numberPopupManager.spawnHitPopup(false, damageValue, this.transform, true);
 
     }
-
-    //The damage system functions, these two functions are needed for any enemy/boss
-    public virtual void takeDamage(float damageValue, bool crit, float facing)
-    {
-
-        enemyAnimations.damageTakeAnim(facing); //start damage animation
-
-        //calculate armour value with armour pieces and buffs
-        float armour = 0;
-        if (enemyDetails is EnemyObjectScript)
-        {
-            armour = enemyDetails.armour;
-            //calculate armour with buffs/debuffs
-            foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
-            {
-                BuffDebuffObjectScript buff = item.buffDebuff;
-                if (buff is BuffDebuffObjectScript)
-                {
-                    //Get the buff info and apply it
-                    if (buff.increaseorDecrease)
-                    {
-                        //increase the stat
-
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.armour)
-                        {
-                            armour *= (1f + (buff.amount / 100f));
-                        }
-                    }
-                    else
-                    {
-                        //Decrease the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.armour)
-                        {
-                            armour /= (1f + (buff.amount / 100f));
-                        }
-                    }
-                }
-            }
-
-            //check if armour holds up against damage
-            float healthDamage = damageValue - armour;
-            if (healthDamage <= 0)
-            {
-                //Attack blocked!
-                //Show a number pop up saying blocked
-                numberPopupManager.spawnBlockedPopup(this.transform);
-            }
-            else
-            {
-                //Not blocked!
-                //Show damage number pop up
-                //Spawn a damage number popup (need to check if crit)
-                numberPopupManager.spawnHitPopup(crit, healthDamage, this.transform, false);
-                currentHealth -= healthDamage;
-            }
-        }
-    }
-
-    //do damage method implemented in subclasses
-
     //heal the enemy
     public void heal(float amt)
     {
@@ -646,6 +589,76 @@ public class Enemy_Generic : NetworkBehaviour
         numberPopupManager.spawnHealPopup(amt, this.transform);
 
     }
+
+    //The damage system functions, these two functions are needed for any enemy/boss
+    [ClientRpc]
+    public virtual void RpctakeDamage(float healthDamage, bool crit, float facing)
+    {
+        print("take damage rpc");
+        
+        enemyAnimations.damageTakeAnim(facing); //start damage animation
+
+        if (healthDamage <= 0)
+        {
+            //Attack blocked!
+            //Show a number pop up saying blocked
+            numberPopupManager.spawnBlockedPopup(this.transform);
+        }
+        else
+        {
+            //Not blocked!
+            //Show damage number pop up
+            //Spawn a damage number popup (need to check if crit)
+            numberPopupManager.spawnHitPopup(crit, healthDamage, this.transform, false);
+            currentHealth -= healthDamage;
+        }
+    }
+    //verify damage value etc
+    [Server]
+    public virtual void takeDamage(float damageValue, bool crit, float facing)
+    {
+        print("take damage command");
+        //calculate armour value with armour pieces and buffs
+        float armour = 0;
+        if (enemyDetails is EnemyObjectScript)
+        {
+            armour = enemyDetails.armour;
+            //calculate armour with buffs/debuffs
+            foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
+            {
+                BuffDebuff buff = item.buffDebuff;
+                if (buff is BuffDebuff)
+                {
+                    //Get the buff info and apply it
+                    if (buff.increaseorDecrease)
+                    {
+                        //increase the stat
+
+                        if (buff.statToModify == BuffDebuff.stats.armour)
+                        {
+                            armour *= (1f + (buff.amount / 100f));
+                        }
+                    }
+                    else
+                    {
+                        //Decrease the stat
+                        if (buff.statToModify == BuffDebuff.stats.armour)
+                        {
+                            armour /= (1f + (buff.amount / 100f));
+                        }
+                    }
+                }
+            }
+
+            //check if armour holds up against damage
+            float healthDamage = damageValue - armour;
+            RpctakeDamage(healthDamage, crit, facing);
+        }
+    }
+
+    //do damage method implemented in subclasses
+
+  
 
     //Collision detection and ground check, arrow check
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -662,11 +675,23 @@ public class Enemy_Generic : NetworkBehaviour
             isGrounded = false;
         }
     }
+    protected void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Ring")
+        {
+            if (!collision.GetComponent<RingDetails>().playerSkill)
+            {
+                BuffDebuff buff = collision.GetComponent<RingDetails>().buff;
+                this.addBuffDebuff(buff, collision.GetComponent<RingDetails>().sourceID);
+            }
+
+        }
+    }
 
 
 
-    
 
-    
+
+
 
 }

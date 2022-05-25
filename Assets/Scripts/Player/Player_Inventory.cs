@@ -49,7 +49,6 @@ public class Player_Inventory : MonoBehaviour
     //Refrences
     public ItemDatabase db; //holds all items
     public Player_UI playerGameUI;
-    public 
 
     void Update()
     {
@@ -138,6 +137,7 @@ public class Player_Inventory : MonoBehaviour
             skillDamage += boot.skillDamage;
             skillHaste += boot.skillHaste;
         }
+        
         if (weapon1 is ItemObjectScript)
         {
             if (weapon1.itemClass == ItemObjectScript.gearType.sword)
@@ -167,22 +167,18 @@ public class Player_Inventory : MonoBehaviour
             if (weapon2.itemClass == ItemObjectScript.gearType.sword)
             {
                 swordDamage += weapon2.weaponDamage;
-                print("sword");
             }
             if (weapon2.itemClass == ItemObjectScript.gearType.bow)
             {
                 bowDamage += weapon2.weaponDamage;
-                print("bow");
             }
             if (weapon2.itemClass == ItemObjectScript.gearType.shield)
             {
                 shieldArmour += weapon2.armour;
-                print("shield");
             }
             if (weapon2.itemClass == ItemObjectScript.gearType.magicstaff)
             {
                 magicStaffDamage += weapon2.weaponDamage;
-                print("staff");
             }
             critChance += weapon2.critChance;
             critDamage += weapon2.critDamage;
@@ -370,6 +366,8 @@ public class Player_Inventory : MonoBehaviour
     //This method is needed for initialize because I want to set items in the inventory from the editor (in full game that would not be needed)
     void Start()
     {
+        db = GameObject.FindGameObjectWithTag("Manager").GetComponent<ItemDatabase>();
+
 
         //Takes scriptable inventory (set in editor) and translates to inventoryIndex []
         for (int i = 0; i < 63; i++)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-
+using Mirror;
 
 //This class inherits from the generic enemy and implements a shield enemy behaviour over top
 public class Enemy_Shield : Enemy_Generic
@@ -36,6 +36,7 @@ public class Enemy_Shield : Enemy_Generic
     }
 
     //do normal fixed update and also do the shield skill cooldowns and activation
+    [ServerCallback]
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -110,8 +111,11 @@ public class Enemy_Shield : Enemy_Generic
         ring.GetComponent<RingDetails>().duration = buffDuration;
 
         //set buff details
-        Player_Buffs.ActiveBuffDebuff buffdebuff = new Player_Buffs.ActiveBuffDebuff(buff, buffDuration);
-        ring.GetComponent<RingDetails>().buff = buffdebuff;
+        BuffDebuff buffInstance = new BuffDebuff(buff.buffName, buff.increaseorDecrease, (BuffDebuff.stats)buff.statToModify, buff.amount, buff.overTime, buffDuration);
+        ring.GetComponent<RingDetails>().buff = buffInstance;
+        ring.GetComponent<RingDetails>().sourceID = (uint)UnityEngine.Random.Range(0, uint.MaxValue);
+
+        NetworkServer.Spawn(ring);
     }
 }
 

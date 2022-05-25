@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CritChance_Buff
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: b4a607c2760db574ba978db317b42d42, type: 3}
+  buffName: CritChanceBuff
   increaseorDecrease: 1
   statToModify: 3
   amount: 5

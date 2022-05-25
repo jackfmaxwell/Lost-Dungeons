@@ -377,6 +377,7 @@
 -r:"Library/Bee/artifacts/500b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/500b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/BuffDebuff.cs"
 "Assets/NetRoomPlayer.cs"
 "Assets/Packages/ProCam/ProCamera2D/3rd Party Plugins Support/PlayMakerActions/FsmStateActionProCamera2DBase.cs"
 "Assets/Packages/ProCam/ProCamera2D/3rd Party Plugins Support/PlayMakerActions/PC2DAddCameraTarget.cs"

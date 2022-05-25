@@ -285,6 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2f3167f76c8ca4fa62f152082add72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   skill1Started: 0
   skill1Ready: 0
   skill1Duration: 0
@@ -313,6 +315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 062cd5f983ae5bd4887972e60f67e5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   xpBarRoot: {fileID: 6252712559769851062}
   xpSlider: {fileID: 0}
   percentage: 0
@@ -383,20 +387,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2688d5fb4027240b5e4a0cce5d49c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   attacking: 0
+  sword_attack: 0
   swordHitRange: 1
   arrowPrefab: {fileID: 4925700917181771370, guid: 77ca62f406364ec48a2d356095f56fab,
     type: 3}
   holding_shield: 0
   parry_oppurtunity: 0
   shieldTired: 0
-  shieldCoolTimer: 0
+  shieldCoolTimer: 1.5
   shieldCoolTimerTotal: 1.5
   shieldHoldTimer: 3
   shieldHoldTimerTotal: 3
   parryTimer: 0
   parryTimerTotal: 0.3
-  numpopup: {fileID: 11497793023000849}
+  health: 0
+  numpopup: {fileID: 107019820251092466, guid: 269a1d2333704994fbde26e48285d90c, type: 3}
 --- !u!114 &4825344311959417860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,44 +2027,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8116766712534951648, guid: bad918b47e2ef184dae5d7fcd1bf7be1,
-        type: 3}
-      propertyPath: healPopup
-      value: 
-      objectReference: {fileID: 6348302544257632204, guid: 201946a6cd441dc43b22ccda3eb8bcad,
-        type: 3}
-    - target: {fileID: 8116766712534951648, guid: bad918b47e2ef184dae5d7fcd1bf7be1,
-        type: 3}
-      propertyPath: blockedPopup
-      value: 
-      objectReference: {fileID: 5394306719346353831, guid: 9291f4084b413ee4685a2bc936b0bd5a,
-        type: 3}
-    - target: {fileID: 8116766712534951648, guid: bad918b47e2ef184dae5d7fcd1bf7be1,
-        type: 3}
-      propertyPath: critHitPopup
-      value: 
-      objectReference: {fileID: 1357685241473363500, guid: dc259c294c4fbe042999dd54f84c040b,
-        type: 3}
-    - target: {fileID: 8116766712534951648, guid: bad918b47e2ef184dae5d7fcd1bf7be1,
-        type: 3}
-      propertyPath: normalHitPopup
-      value: 
-      objectReference: {fileID: 5990592094161939568, guid: 37e0449db2628b44893646a2f3bdab1b,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bad918b47e2ef184dae5d7fcd1bf7be1, type: 3}
---- !u!114 &11497793023000849 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8116766712534951648, guid: bad918b47e2ef184dae5d7fcd1bf7be1,
-    type: 3}
-  m_PrefabInstance: {fileID: 8109951022694803441}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034f8944d40fa7541b17375010725663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3359733813483994522 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6785932221042580075, guid: bad918b47e2ef184dae5d7fcd1bf7be1,

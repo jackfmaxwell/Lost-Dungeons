@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: IronSkin
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: c4585c1098c275c4292d3b81f7171075, type: 3}
+  buffName: IronSkin
   increaseorDecrease: 1
   statToModify: 0
   amount: 30

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PoisonDebuff
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: e138c8ee53e9f43458f11ebf516a6595, type: 3}
+  buffName: PoisonDebuff
   increaseorDecrease: 0
   statToModify: 5
   amount: 3

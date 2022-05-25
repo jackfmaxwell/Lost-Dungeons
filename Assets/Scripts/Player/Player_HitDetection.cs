@@ -40,6 +40,7 @@ public class Player_HitDetection : NetworkBehaviour
     private Player_Input playerinput; //for interact
     private Player_Inventory inv; //to get key details when checking for door opening
     private Player_Animation playeranim; //for particle effect
+    private Player_Buffs playerBuffs;
     void Awake()
     {
         try
@@ -48,6 +49,7 @@ public class Player_HitDetection : NetworkBehaviour
             playerMove = this.GetComponent<Player_Movement>();
             inv = this.GetComponent<Player_Inventory>();
             playeranim = this.GetComponent<Player_Animation>();
+            playerBuffs = this.GetComponent<Player_Buffs>();
         }
         catch (Exception e)
         {
@@ -167,6 +169,7 @@ public class Player_HitDetection : NetworkBehaviour
 
     }
 
+    [Client]
     void OnTriggerStay2D(Collider2D collision)
     {
         //need to pickup
@@ -260,16 +263,27 @@ public class Player_HitDetection : NetworkBehaviour
            
         }
 
+       
+        if (collision.tag == "Ring")
+        {
+            if (collision.GetComponent<RingDetails>().playerSkill)
+            {
+                BuffDebuff buff = collision.GetComponent<RingDetails>().buff;
+                playerBuffs.addBuffDebuff(buff, collision.GetComponent<RingDetails>().sourceID);
+            }
+           
+        }
+
 
     }
 
 
     //This function checks in front of the player for enemies to do damage to when swinging sword
-    public RaycastHit2D[] swordAttack(float hitrange)
+    public RaycastHit2D swordAttack(float hitrange)
     {
         //what direction are we facing?
         Vector2 dir = new Vector2(this.transform.localScale.x, 0f); 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, dir, hitrange, enemyMask);
+        RaycastHit2D hits = Physics2D.CircleCast(transform.position, 1f, dir, hitrange, enemyMask);
         return hits;
     }
 

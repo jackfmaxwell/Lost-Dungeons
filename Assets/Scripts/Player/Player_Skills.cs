@@ -124,21 +124,17 @@ public class Player_Skills : NetworkBehaviour
         skill1TotalDur = duration; 
         skill1TotalCool = cooldown - (cooldown * stat[6]);
     }
-
     [Command]
-    void CmdSpawnHealingRing(float duration)
+    void CmdSpawnHealingRing(float objectDuration, BuffDebuff buffInstance)
     {
         GameObject ring = GameObject.Instantiate(healingRing);
         ring.transform.position = this.gameObject.transform.position;
 
-
-        
-        ring.layer = this.gameObject.layer;
         ring.GetComponent<RingDetails>().playerSkill = true;
-        ring.GetComponent<RingDetails>().duration = duration;
-
-        Player_Buffs.ActiveBuffDebuff buff = new Player_Buffs.ActiveBuffDebuff(stats.skills[0].skillBuffs[0], stats.skills[0].buffDuration[0]);
-        ring.GetComponent<RingDetails>().buff = buff;
+        ring.GetComponent<RingDetails>().duration = buffInstance.buffDuration;
+        //COULD BE ISSUE HERE TODO
+        ring.GetComponent<RingDetails>().buff = buffInstance; //this may not work because sprite reference in BuffObjectScript
+        ring.GetComponent<RingDetails>().sourceID = (uint)UnityEngine.Random.Range(0, uint.MaxValue);
         
         NetworkServer.Spawn(ring);
     }
@@ -149,6 +145,7 @@ public class Player_Skills : NetworkBehaviour
         //Grab skill details from scriptableobject
 
         SkillObjectScript skill1 = stats.skills[0];
+        uint sourceID = (uint)UnityEngine.Random.Range(0, uint.MaxValue);
 
         //check if there is a skill we can use
         if (skill1 is SkillObjectScript)
@@ -172,21 +169,13 @@ public class Player_Skills : NetworkBehaviour
                             if (objectTypeClass.obj == SkillObjectScript.objectTypeClass.objectType.healingRing)
                             {
                                 //instantiate object
-
-                                CmdSpawnHealingRing(objectTypeClass.duration);
+                                BuffDebuffObjectScript skillBuff = skill1.skillBuffs[0];
+                                BuffDebuff buffWithStatsApplied = new BuffDebuff(skillBuff.buffName, skillBuff.increaseorDecrease, (BuffDebuff.stats)skillBuff.statToModify, skillBuff.amount, skillBuff.overTime, skill1.buffDuration[0]);
+                                CmdSpawnHealingRing(objectTypeClass.duration, buffWithStatsApplied);
 
                             }
                             if (objectTypeClass.obj == SkillObjectScript.objectTypeClass.objectType.shieldRing)
                             {
-                                GameObject ring = GameObject.Instantiate(shieldRing);
-                                ring.transform.position = this.gameObject.transform.position;
-                              
-
-                                ring.GetComponent<RingDetails>().playerSkill = true;
-                                ring.GetComponent<RingDetails>().duration = objectTypeClass.duration;
-
-                                Player_Buffs.ActiveBuffDebuff buff = new Player_Buffs.ActiveBuffDebuff(skill1.skillBuffs[0], skill1.buffDuration[0]);
-                                ring.GetComponent<RingDetails>().buff = buff;
                                 //CmdSpawnSkillObject(ring);
                             }
 
@@ -200,7 +189,8 @@ public class Player_Skills : NetworkBehaviour
                         int i = 0;
                         foreach (BuffDebuffObjectScript buff in skill1.skillBuffs)
                         {
-                            playerBuffs.addBuffDebuff(buff, skill1.buffDuration[i]);
+                            BuffDebuff buffInstance = new BuffDebuff(buff.buffName, buff.increaseorDecrease, (BuffDebuff.stats)buff.statToModify, buff.amount, buff.overTime, skill1.buffDuration[i]);
+                            playerBuffs.addBuffDebuff(buffInstance, sourceID);
                             print("added");
                             i++;
                         }
@@ -290,6 +280,8 @@ public class Player_Skills : NetworkBehaviour
     }
     public void useSkill2()
     {
+        uint sourceID = (uint)UnityEngine.Random.Range(0, uint.MaxValue);
+
         SkillObjectScript skill2 = stats.skills[1];
         //check if there is a skill we can use
         if (skill2 is SkillObjectScript)
@@ -312,30 +304,12 @@ public class Player_Skills : NetworkBehaviour
                             if (objectTypeClass.obj == SkillObjectScript.objectTypeClass.objectType.healingRing)
                             {
                                 //instantiate object
-                                GameObject ring = GameObject.Instantiate(healingRing);
-                                ring.transform.position = this.gameObject.transform.position;
-                                ring.layer = this.gameObject.layer;
 
-
-                                
-                                ring.GetComponent<RingDetails>().playerSkill = true;
-                                ring.GetComponent<RingDetails>().duration = objectTypeClass.duration;
-
-                                Player_Buffs.ActiveBuffDebuff buff = new Player_Buffs.ActiveBuffDebuff(skill2.skillBuffs[0], skill2.buffDuration[0]);
-                                ring.GetComponent<RingDetails>().buff = buff;
 
                             }
                             if(objectTypeClass.obj == SkillObjectScript.objectTypeClass.objectType.shieldRing)
                             {
-                                GameObject ring = GameObject.Instantiate(shieldRing);
-                                ring.transform.position = this.gameObject.transform.position;
-                                ring.layer = this.gameObject.layer;
 
-                                ring.GetComponent<RingDetails>().playerSkill = true;
-                                ring.GetComponent<RingDetails>().duration = objectTypeClass.duration;
-
-                                Player_Buffs.ActiveBuffDebuff buff = new Player_Buffs.ActiveBuffDebuff(skill2.skillBuffs[0], skill2.buffDuration[0]);
-                                ring.GetComponent<RingDetails>().buff = buff;
                             }
 
                         }
@@ -347,8 +321,8 @@ public class Player_Skills : NetworkBehaviour
                         int i = 0;
                         foreach (BuffDebuffObjectScript buff in skill2.skillBuffs)
                         {
-                            buff.amount = buff.amount + buff.amount * stat[6];
-                            playerBuffs.addBuffDebuff(buff, skill2.buffDuration[i]);
+                            BuffDebuff buffInstance = new BuffDebuff(buff.buffName, buff.increaseorDecrease, (BuffDebuff.stats)buff.statToModify, buff.amount * stat[6], buff.overTime, skill2.buffDuration[i]);
+                            playerBuffs.addBuffDebuff(buffInstance, sourceID);
                             
                             i++;
                         }

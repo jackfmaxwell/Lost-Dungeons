@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1801910822054211301}
   - component: {fileID: 1801910822054211300}
   - component: {fileID: 6161809370487192668}
-  - component: {fileID: -2853995922420509230}
   - component: {fileID: -1891192290179338494}
   - component: {fileID: -2244202922287343077}
   m_Layer: 0
@@ -126,6 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acc65f92fdfaed4190bb60f5170859e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   buff:
     buffDebuff: {fileID: 0}
     duration: 0
@@ -133,27 +134,6 @@ MonoBehaviour:
   duration: 10
   tick: 1
   playerSkill: 0
---- !u!50 &-2853995922420509230
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1801910822054211303}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &-1891192290179338494
 MonoBehaviour:
   m_ObjectHideFlags: 0

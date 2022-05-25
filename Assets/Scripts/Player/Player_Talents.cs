@@ -6,10 +6,11 @@ using System;
 //this class listens to talent events and applies the logic
 public class Player_Talents : MonoBehaviour
 {
-    
+    public uint sourceID;
     private Player_Inventory inventory;
     private void Awake()
     {
+        sourceID = (uint)UnityEngine.Random.Range(0, uint.MaxValue);
         try
         {
             inventory = this.GetComponent<Player_Inventory>();
@@ -40,7 +41,8 @@ public class Player_Talents : MonoBehaviour
                 {
                     if (talent.bufftarget == ItemPerkScript.targets.enemy)
                     {
-                        gameobject.GetComponent<Enemy_Generic>().addBuffDebuff(talent.buffs[0], talent.buffDurations[0]);
+                        BuffDebuff buffInstance = new BuffDebuff(talent.buffs[0].buffName, talent.buffs[0].increaseorDecrease, (BuffDebuff.stats)talent.buffs[0].statToModify, talent.buffs[0].amount, talent.buffs[0].overTime, talent.buffDurations[0]);
+                        gameobject.GetComponent<Enemy_Generic>().addBuffDebuff(buffInstance, sourceID);
                         
                     }
                 }

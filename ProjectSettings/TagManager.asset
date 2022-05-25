@@ -25,6 +25,7 @@ TagManager:
   - Background
   - EnemyViewBox
   - Enemy_Arrow
+  - Manager
   layers:
   - Default
   - TransparentFX

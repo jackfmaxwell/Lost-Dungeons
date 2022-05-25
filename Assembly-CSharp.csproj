@@ -93,6 +93,7 @@
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\Examples\TopDownShooter\Scripts\Enemy\EnemyPatrol.cs" />
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\Code\Core\Utils\EditorPrefsX.cs" />
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\Code\Extensions\ProCamera2DLimitSpeed.cs" />
+    <Compile Include="Assets\BuffDebuff.cs" />
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\Code\Core\CameraTarget.cs" />
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\3rd Party Plugins Support\PlayMakerActions\PC2DMoveCameraInstantlyToPosition.cs" />
     <Compile Include="Assets\Packages\ProCam\ProCamera2D\Examples\TopDownShooter\Scripts\GameOver.cs" />

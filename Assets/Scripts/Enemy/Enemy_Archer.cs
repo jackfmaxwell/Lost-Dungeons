@@ -46,14 +46,14 @@ public class Enemy_Archer : Enemy_Generic
 
             foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
             {
-                BuffDebuffObjectScript buff = item.buffDebuff;
-                if (buff is BuffDebuffObjectScript) //check for sriptableobjects to work
+                BuffDebuff buff = item.buffDebuff;
+                if (buff is BuffDebuff) //check for sriptableobjects to work
                 {
                     //Get the buff info and apply it
                     if (buff.increaseorDecrease)
                     {
                         //this buff increases the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.critChance) //CC
+                        if (buff.statToModify == BuffDebuff.stats.critChance) //CC
                         {
                             //make sure critchance doesnt go more than 100%
                             if ((critChance * (1f + (buff.amount) / 100f)) > 100f)
@@ -66,7 +66,7 @@ public class Enemy_Archer : Enemy_Generic
                             }
 
                         }
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.critDamage) //CD
+                        if (buff.statToModify == BuffDebuff.stats.critDamage) //CD
                         {
                             critDamage *= (1f + (buff.amount) / 100f);
                         }
@@ -74,7 +74,7 @@ public class Enemy_Archer : Enemy_Generic
                     else
                     {
                         //Decrease the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.critChance)//CC
+                        if (buff.statToModify == BuffDebuff.stats.critChance)//CC
                         {
                             //Make sure crit chance doesnt go below 0
                             if ((critChance / (1f + (buff.amount / 100f))) > 0)
@@ -87,7 +87,7 @@ public class Enemy_Archer : Enemy_Generic
                             }
 
                         }
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.critDamage)//CD
+                        if (buff.statToModify == BuffDebuff.stats.critDamage)//CD
                         {
                             critDamage /= (1f + (buff.amount) / 100f);
                         }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6785932220570695050}
   - component: {fileID: 6785932220570695048}
   - component: {fileID: 6785932220570695049}
-  - component: {fileID: 8116766712534951648}
   m_Layer: 5
   m_Name: PopupCanvas
   m_TagString: Untagged
@@ -84,7 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6785932220570695049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,23 +101,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8116766712534951648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6785932220570695051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 034f8944d40fa7541b17375010725663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvas: {fileID: 6785932220570695050}
-  normalHitPopup: {fileID: 0}
-  critHitPopup: {fileID: 0}
-  healPopup: {fileID: 0}
-  blockedPopup: {fileID: 0}
 --- !u!1 &6785932221010831411
 GameObject:
   m_ObjectHideFlags: 0

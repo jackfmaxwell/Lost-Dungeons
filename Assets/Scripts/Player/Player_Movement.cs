@@ -79,10 +79,10 @@ public class Player_Movement : NetworkBehaviour
 
     void FixedUpdate()
     {
-
+        if (!hasAuthority) { return; }
         move_Player(playerInput.getHorizontalMove());
 
-        if (playerDetectEnabled) { doJump(playerInput.getJump()); }
+        if (playerDetectEnabled) { CmddoJump(playerInput.getJump()); }
         
 
     }
@@ -122,27 +122,35 @@ public class Player_Movement : NetworkBehaviour
         runDirection = value;
     }
 
-    private void doJump(float jump)
+
+    [Command]
+    void CmddoJump(float jump)
     {
+        if (!hasAuthority) { return;  }
         if (jump > 0)
         {
             if (playerdetect.isGrounded())
             {
                 if (slowed || movementLock)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jump_force/2f);
+                    RpcJump(jump_force / 2f);
                 }
                 else
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jump_force);
+                    RpcJump(jump_force);
                 }
                
             }
             if (playerdetect.isOnLadder())
             {
-                rb.velocity = new Vector2(rb.velocity.x, 7f);
+                RpcJump(7f);
             }
         }
         
+    }
+    [ClientRpc]
+    void RpcJump(float jump)
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jump);
     }
 }

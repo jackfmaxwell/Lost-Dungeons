@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Mirror;
 
 //This class holds logic for the dungeon scene UI
 //leveling display and skil display and miscell 
-public class Player_UI : MonoBehaviour
+public class Player_UI : NetworkBehaviour
 {
 
-    //Xp UI
+    public GameObject uiRoot; //set this true if localAuthority
+
+    //--------------------Xp UI-----------------------------------------
     public GameObject xpBarRoot;
     
     public Slider xpSlider;
@@ -23,7 +26,8 @@ public class Player_UI : MonoBehaviour
         xpPercentageText = xpBarRoot.transform.GetChild(2).GetComponent<Text>();
     }
 
-    //Health UI
+
+    //------------Health UI--------------------------------------
     public GameObject healthBarRoot;
     private Slider healthBarSlider;
     private Text healthText;
@@ -33,7 +37,7 @@ public class Player_UI : MonoBehaviour
         healthText = healthBarRoot.transform.GetChild(2).GetComponent<Text>();
     }
 
-    //Buff UI
+    //------------------Buff UI----------------------------------
     public GameObject buffRoot;
     private GameObject[] buffCooldowns;
     private Image[] buffImage;
@@ -48,7 +52,7 @@ public class Player_UI : MonoBehaviour
         }
     }
 
-    //Skill UI 
+    //---------------------Skill UI ------------------------------
     public GameObject leftSkillRoot, rightSkillRoot;
     private Image leftSkill, rightSkill;
     private Image leftSkillPicture, rightSkillPicture;
@@ -65,6 +69,8 @@ public class Player_UI : MonoBehaviour
         leftSkillCover = leftSkillRoot.transform.GetChild(2).gameObject;
         rightSkillCover = rightSkillRoot.transform.GetChild(2).gameObject;
     }
+
+
 
     //Keys UI
     public Image[] keys;
@@ -86,11 +92,6 @@ public class Player_UI : MonoBehaviour
     //Grab references
     void Awake()
     {
-        
-        getXPUI();
-        getHealthUI();
-        getBuffUI();
-        getSkillUI();
         try {
             skillManager = this.GetComponent<Player_Skills>();
             inv = this.GetComponent<Player_Inventory>();
@@ -109,6 +110,8 @@ public class Player_UI : MonoBehaviour
 
     private void Start()
     {
+        if (!hasAuthority) { return; }
+        uiRoot.SetActive(true);
         getXPUI();
         getHealthUI();
         getBuffUI();
@@ -137,8 +140,10 @@ public class Player_UI : MonoBehaviour
     }
 
     //This method updates the shield UI using player input
+    [Client]
     private void shieldUIUpdates()
     {
+        if (!hasAuthority) { return; }
         //line the UI up with where the player is
         shieldHoldImg.gameObject.transform.position = this.transform.position;
         shieldCooldownImg.gameObject.transform.position = this.transform.position;
@@ -179,6 +184,7 @@ public class Player_UI : MonoBehaviour
 
     //This method updates the health bar UI
     //NOTE: May add effects such as: flash drop
+    [Client]
     private void healthbarUIUpdates()
     {
         //HealthBar
@@ -190,6 +196,7 @@ public class Player_UI : MonoBehaviour
 
 
     //This method updates the xp bar UI
+    [Client]
     private void xpbarUIUpdate()
     {
         xpLevelText.text = "Level " + inv.level; //level count
@@ -202,6 +209,7 @@ public class Player_UI : MonoBehaviour
     }
 
     //This method is used to slowly count up the xp bar to the amt we earned
+    [Client]
     public IEnumerator countUpXPBar(float amt)
     {
         //whats the percentage chunk
@@ -218,6 +226,7 @@ public class Player_UI : MonoBehaviour
 
 
     //Updates the UI for the keys we currently have in our inventory
+    [Client]
     private void keysUIUpdate()
     {
         for (int i = 0; i < 6; i++)
@@ -244,6 +253,7 @@ public class Player_UI : MonoBehaviour
     //Called every frame
     private void Update()
     {
+        if (!hasAuthority) { return; }
         shieldUIUpdates();
 
         healthbarUIUpdates();
@@ -261,6 +271,7 @@ public class Player_UI : MonoBehaviour
     }
 
     //This method udates the skill UI, cooldowns, and shows if the skill is active (greyed out)
+    [Client]
     private void displaySkills()
     {
         //left
@@ -312,17 +323,22 @@ public class Player_UI : MonoBehaviour
     }
 
     //This method displays the active buffs for the player onscreen
+    [Client]
     private void displayBuffs()
     {
         List<Player_Buffs.ActiveBuffDebuff> activeBuffs = playerBuffs.activeBuffsDebuffs;
         int i = 0;
         foreach(Player_Buffs.ActiveBuffDebuff item in activeBuffs)
         {
-            if(item.buffDebuff is BuffDebuffObjectScript)
+            if(item.buffDebuff is BuffDebuff)
             {
                 buffCooldowns[i].SetActive(true);
                 buffCooldowns[i].GetComponent<Image>().fillAmount = item.duration / item.totalDuration;
-                buffImage[i].sprite = item.buffDebuff.image;
+                print(item.buffDebuff.buffName);
+                if (item.buffDebuff.buffName != null)
+                {
+                    buffImage[i].sprite = inv.db.buffImageByName(item.buffDebuff.buffName);
+                }
                 if (i >= 19)
                 {
                     //all slots are used

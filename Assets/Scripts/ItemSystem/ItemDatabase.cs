@@ -10,6 +10,21 @@ public class ItemDatabase : MonoBehaviour
 
     public List<SkillObjectScript> skilldatabase = new List<SkillObjectScript>();
 
+
+    public List<BuffDebuffObjectScript> buffdatabase = new List<BuffDebuffObjectScript>();
+    public Sprite buffImageByName(string name)
+    {
+        foreach(BuffDebuffObjectScript buff in buffdatabase)
+        {
+            if (buff.buffName == name)
+            {
+                print("found buff: " + name);
+                return buff.image;
+            }
+        }
+        return null;
+    }
+
     //loops through database looking for an item with matching param index
     public ItemObjectScript findItemByIndex(int index)
     {

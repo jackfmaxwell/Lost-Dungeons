@@ -125,13 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acc65f92fdfaed4190bb60f5170859e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buff:
-    buffDebuff: {fileID: 0}
-    duration: 0
-    totalDuration: 0
+  syncMode: 0
+  syncInterval: 0.1
   duration: 10
-  tick: 0
   playerSkill: 0
+  sourceID: 0
 --- !u!114 &-3947671524070960095
 MonoBehaviour:
   m_ObjectHideFlags: 0

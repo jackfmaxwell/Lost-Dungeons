@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Mirror;
 
 //This class handles applying overtime buff effects every 1 second and manages adding and removing buffs
-public class Player_Buffs : MonoBehaviour
+public class Player_Buffs : NetworkBehaviour
 {
-
+    
     //This class defines a structure that includes buffduff object script, current duration, total duration, and a constructor
     [Serializable]
     public class ActiveBuffDebuff
     {
-        public BuffDebuffObjectScript buffDebuff;
+        public BuffDebuff buffDebuff;
         public float duration; // counts down
         public float totalDuration;
+        public uint id;
 
-        public ActiveBuffDebuff(BuffDebuffObjectScript bD, float dur)
+        public ActiveBuffDebuff(BuffDebuff buffD, uint sourceID)
         {
-            buffDebuff = bD;
-            duration = dur;
-            totalDuration = dur;
+            buffDebuff = buffD;
+            duration = buffD.buffDuration;
+            totalDuration = duration;
+            id = sourceID;
         }
     }
     
@@ -28,23 +31,24 @@ public class Player_Buffs : MonoBehaviour
     public List<ActiveBuffDebuff> activeBuffsDebuffs = new List<ActiveBuffDebuff>();
 
     //Functions to add and remove buffs
-    public void addBuffDebuff(BuffDebuffObjectScript buffDebuff, float duration)
+    public void addBuffDebuff(BuffDebuff buffDebuff, uint sourceID)
     {
         //is this buff already in the list?
         bool contained=false;
-        ActiveBuffDebuff item = new ActiveBuffDebuff(buffDebuff, duration);
+        
         foreach(ActiveBuffDebuff buff in activeBuffsDebuffs)
         {
-            if(buff.buffDebuff== buffDebuff)
+            if(buff.id == sourceID) 
             {
                 //we already have this buff in the list
                 //refresh the duration
-                buff.duration = duration;
+                buff.duration = buff.totalDuration;
                 contained = true;
             }
         }
         if (!contained)
         {
+            ActiveBuffDebuff item = new ActiveBuffDebuff(buffDebuff, sourceID);
             activeBuffsDebuffs.Add(item);
         }
             
@@ -77,13 +81,14 @@ public class Player_Buffs : MonoBehaviour
 
 
     //called every 1 seconds, applies all buffs and counts down timers
+    
     public void applyBuffDebuffEffect()
     {
         List<ActiveBuffDebuff> toberemoved = new List<ActiveBuffDebuff>();
         foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
         {
-            BuffDebuffObjectScript buff = item.buffDebuff;
-            if (buff is BuffDebuffObjectScript)
+            BuffDebuff buff = item.buffDebuff;
+            if (buff is BuffDebuff)
             {
                 if (buff.overTime)
                 {
@@ -91,18 +96,19 @@ public class Player_Buffs : MonoBehaviour
                     if (buff.increaseorDecrease)
                     {
                         //this buff increases the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.health)
+                        if (buff.statToModify == BuffDebuff.stats.health)
                         {
-                            playerCombat.healPlayer(buff.amount);
+                            print("healing from buff");
+                            playerCombat.healPlayer(buff.amount); //CMD
                         }
 
                     }
                     else
                     {
                         //this buff increases the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.health)
+                        if (buff.statToModify == BuffDebuff.stats.health)
                         {
-                            playerCombat.applyHealthDamage(buff.amount);
+                            playerCombat.applyHealthDamage(buff.amount); //CMD
                         }
                     }
                 }
@@ -128,8 +134,8 @@ public class Player_Buffs : MonoBehaviour
         float armour = inventory.getArmour();
         foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
         {
-            BuffDebuffObjectScript buff = item.buffDebuff;
-            if (buff is BuffDebuffObjectScript)
+            BuffDebuff buff = item.buffDebuff;
+            if (buff is BuffDebuff)
             {
                 if (!buff.overTime)
                 {
@@ -138,7 +144,7 @@ public class Player_Buffs : MonoBehaviour
                     {
                         //increase the stat
 
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.armour)
+                        if (buff.statToModify == BuffDebuff.stats.armour)
                         {
                             armour *= (1f + (buff.amount / 100f));
                         }
@@ -146,7 +152,7 @@ public class Player_Buffs : MonoBehaviour
                     else
                     {
                         //Decrease the stat
-                        if (buff.statToModify == BuffDebuffObjectScript.stats.armour)
+                        if (buff.statToModify == BuffDebuff.stats.armour)
                         {
                             armour /= (1f + (buff.amount / 100f));
                         }
@@ -183,14 +189,14 @@ public class Player_Buffs : MonoBehaviour
         //calculte, then return the value
         foreach (ActiveBuffDebuff item in activeBuffsDebuffs)
         {
-            BuffDebuffObjectScript buff = item.buffDebuff;
-            if (buff is BuffDebuffObjectScript)
+            BuffDebuff buff = item.buffDebuff;
+            if (buff is BuffDebuff)
             {
                 //Get the buff info and apply it
                 if (buff.increaseorDecrease)
                 {
                     //this buff increases the stat
-                    if (buff.statToModify == BuffDebuffObjectScript.stats.critChance) //CC
+                    if (buff.statToModify == BuffDebuff.stats.critChance) //CC
                     {
                         //make sure critchance doesnt go more than 100%
                         if ((critChance * (1f + (buff.amount) / 100f)) > 100f)
@@ -203,7 +209,7 @@ public class Player_Buffs : MonoBehaviour
                         }
 
                     }
-                    if (buff.statToModify == BuffDebuffObjectScript.stats.critDamage) //CD
+                    if (buff.statToModify == BuffDebuff.stats.critDamage) //CD
                     {
                         critDamage *= (1f + (buff.amount) / 100f);
                     }
@@ -211,7 +217,7 @@ public class Player_Buffs : MonoBehaviour
                 else
                 {
                     //Decrease the stat
-                    if (buff.statToModify == BuffDebuffObjectScript.stats.critChance)//CC
+                    if (buff.statToModify == BuffDebuff.stats.critChance)//CC
                     {
                         //Make sure crit chance doesnt go below 0
                         if ((critChance / (1f + (buff.amount / 100f))) > 0)
@@ -224,7 +230,7 @@ public class Player_Buffs : MonoBehaviour
                         }
 
                     }
-                    if (buff.statToModify == BuffDebuffObjectScript.stats.critDamage)//CD
+                    if (buff.statToModify == BuffDebuff.stats.critDamage)//CD
                     {
                         critDamage /= (1f + (buff.amount) / 100f);
                     }

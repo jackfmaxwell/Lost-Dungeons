@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BuffDebuffObjectScript : ScriptableObject
 {
     public Sprite image;
+    public string buffName; //must be unique for sprite lookup to work
 
     //outline for the buff/debuff
     public bool increaseorDecrease; //true means increase, false means decrease 

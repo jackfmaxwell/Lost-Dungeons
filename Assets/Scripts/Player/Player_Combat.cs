@@ -43,7 +43,7 @@ public class Player_Combat : NetworkBehaviour
     [SerializeField]
     private float shieldHoldTimer, shieldHoldTimerTotal = 3f;
     [SerializeField]
-    private float parryTimer, parryTimerTotal = 0.3f;
+    private float parryTimer, parryTimerTotal = 0.6f;
     public struct shieldInformation
     {
         public bool holding_shield;
@@ -66,16 +66,7 @@ public class Player_Combat : NetworkBehaviour
         shieldInformation info = new shieldInformation(holding_shield, shieldTired, shieldCoolTimer, shieldCoolTimerTotal, shieldHoldTimer, shieldHoldTimerTotal);
         return info;
     }
-    [Command]
-    void CmdSetHoldingShieldBool(bool value)
-    {
-        holding_shield = value;
-    }
-    [Command]
-    void CmdSetShieldTiredBool(bool value)
-    {
-        shieldTired = value;
-    }
+
 
 
     //health
@@ -105,11 +96,11 @@ public class Player_Combat : NetworkBehaviour
     private Player_Talents playerTalents; //to send events on combat related things
 
     private Player_Skills skillmanager; //check input and send input to skills
-    public NumberPopupManager numpopup;
+    private NumberPopupManager numpopup;
 
     private Player_Inventory inv;
 
-   
+
     void Awake()
     {
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
@@ -130,6 +121,8 @@ public class Player_Combat : NetworkBehaviour
             playerInput = this.GetComponent<Player_Input>();
             playerhd = this.GetComponent<Player_HitDetection>();
             playeranimations = this.GetComponent<Player_Animation>();
+
+            numpopup = GameObject.Find("PopupNumberManager").GetComponent<NumberPopupManager>();
         }
         catch (Exception e)
         {
@@ -148,8 +141,8 @@ public class Player_Combat : NetworkBehaviour
             doAction(playerInput.getAction());
             doSkills(playerInput.getSkill());
         }
-      
-        
+
+
     }
     //Synchronize attack state across network
     [Command]
@@ -158,6 +151,7 @@ public class Player_Combat : NetworkBehaviour
         attacking = attackingBool;
     }
 
+    [Client]
     private void doSkills(float[] skills)
     {
         if (skills[0] > 0)
@@ -170,7 +164,7 @@ public class Player_Combat : NetworkBehaviour
         }
     }
 
-
+    [Client]
     //can only pick 1 action at a time so check sword then bow then shield (MUST ADD MAGICSTAFF) TODO
     private void doAction(float[] actions)
     {
@@ -179,7 +173,7 @@ public class Player_Combat : NetworkBehaviour
         float shieldMove = actions[2];
         float staffAttack = actions[3];
 
-        if (swordAttack > 0 && shieldMove==0)
+        if (swordAttack > 0 && shieldMove == 0)
         {
             if (!sword_attack && !bow_attack && !staff_attack)
             {
@@ -187,7 +181,7 @@ public class Player_Combat : NetworkBehaviour
                 playeranimations.setSwordSwingAnimation();
             }
         }
-        else if(bowAttack > 0 && shieldMove == 0)
+        else if (bowAttack > 0 && shieldMove == 0)
         {
             if (!bow_attack && !sword_attack && !staff_attack)
             {
@@ -195,16 +189,16 @@ public class Player_Combat : NetworkBehaviour
                 playeranimations.setBowAnimation();
             }
         }
-        else if(staffAttack>0 && shieldMove == 0)
+        else if (staffAttack > 0 && shieldMove == 0)
         {
             if (!staff_attack && !bow_attack && !sword_attack)
             {
                 StartCoroutine(magicStaffAttack());
                 playeranimations.setStaffAnimation();
             }
-            
+
         }
-       
+
         if (sword_attack || bow_attack || staff_attack)
         {
             manageShieldFunctionality(0);
@@ -218,6 +212,11 @@ public class Player_Combat : NetworkBehaviour
     }
 
     //shield state machine
+    [Command]
+    private void CmdUpdateHoldingShield(bool value)
+    {
+        holding_shield = value;
+    }
     private void manageShieldFunctionality(float shieldMove)
     {
         if (!shieldTired)
@@ -229,7 +228,7 @@ public class Player_Combat : NetworkBehaviour
                     //this is first frame
                     parry_oppurtunity = true; // do a countdown then turn parry_oppurtunity to false, and in take damage need to check if enenmy is doing parry then take stun
                 }
-                CmdSetHoldingShieldBool(true);
+                CmdUpdateHoldingShield(true);
                 //make player slower
                 playerMove.setSlow(true);
             }
@@ -245,18 +244,18 @@ public class Player_Combat : NetworkBehaviour
                     shieldHoldTimer -= 0.5f;
                     if (shieldHoldTimer <= 0f)
                     {
-                        CmdSetShieldTiredBool(true);
+                        shieldTired = true;
                         shieldHoldTimer = shieldHoldTimerTotal;
                     }
                 }
-                CmdSetHoldingShieldBool(false);
+                CmdUpdateHoldingShield(false);
                 playerMove.setSlow(false);
             }
         }
 
         if (parry_oppurtunity)
         {
-            if(parryTimer >= 0f)
+            if (parryTimer >= 0f)
             {
                 parryTimer -= 1f * Time.deltaTime;
             }
@@ -266,7 +265,7 @@ public class Player_Combat : NetworkBehaviour
                 parryTimer = parryTimerTotal;
             }
         }
-        
+
         //update shield timers
         if (!holding_shield)
         {
@@ -285,9 +284,9 @@ public class Player_Combat : NetworkBehaviour
             }
             else
             {
-                CmdSetShieldTiredBool(true);
+                shieldTired = true;
                 shieldHoldTimer = shieldHoldTimerTotal;
-                CmdSetHoldingShieldBool(false);
+                CmdUpdateHoldingShield(false);
             }
         }
 
@@ -300,11 +299,12 @@ public class Player_Combat : NetworkBehaviour
             }
             else
             {
-                CmdSetShieldTiredBool(false);
+                shieldTired = false;
                 shieldCoolTimer = shieldCoolTimerTotal;
             }
         }
     }
+
 
     //Fire bow shot, plays animation, spawns arrow, and sets the arrow details to 
     private IEnumerator bowShot()
@@ -360,6 +360,7 @@ public class Player_Combat : NetworkBehaviour
         staff_attack = false;
     }
 
+    [Client]
     //swing, play animation, find collider, damage each collider
     private IEnumerator swordSwing()
     {
@@ -368,25 +369,24 @@ public class Player_Combat : NetworkBehaviour
         yield return new WaitForSeconds(0.25f);
 
         //find a collider to do damage
-        RaycastHit2D[] hits = playerhd.swordAttack(swordHitRange);
-        for(int i=0; i<hits.Length; i++)
+        RaycastHit2D hits = playerhd.swordAttack(swordHitRange);
+
+        if (hits.collider != null)
         {
-            if (hits[i].collider != null)
+            if (hits.collider.gameObject.tag == "Enemy")
             {
-                if (hits[i].collider.gameObject.tag == "Enemy")
-                {
-                    doDamage(hits[i].collider.gameObject, 1); //do damage to each collider
-                }
+                CmddoDamage(hits.collider.gameObject, 1); //do damage to each collider
             }
         }
+
         playerMove.setLockForTime(0.5f); //slow while attacking
         yield return new WaitForSeconds(0.5f); //lead out time
         sword_attack = false;
     }
 
-    private void doDamage(GameObject target, int weapontype) //1 -> sword damage, 2-> bow damage, 3-> magic staff damage
+    [Command]
+    private void CmddoDamage(GameObject target, int weapontype) //1 -> sword damage, 2-> bow damage, 3-> magic staff damage
     {
-        
         ProCamera2DShake.Instance.Shake(0);
         float[] updatedstats  = playerBuff.calculateDamageWithBuffs(weapontype);
         float damage = updatedstats[0];
@@ -438,70 +438,73 @@ public class Player_Combat : NetworkBehaviour
 
     }
 
+    [Command]
+    private void CmdStunEnemy(GameObject enemy)
+    {
+        enemy.GetComponent<Enemy_Generic>().stunEnemy();
+        print("parry");
+    }
+
+    [ClientRpc]
     //compares our armour against their damage and evaluates the damage we take
     public void takeDamage(float damageValue, bool crit, GameObject damager)
     {
-        if (hasAuthority)
+        ProCamera2DShake.Instance.Shake(1);
+        //calculate armour with buffs/debuffs
+        float armour = playerBuff.calculateArmourWithBuffs();
+
+        //check if armour holds up against damage
+        float shieldArmour = inv.getShieldArmour();
+        float healthDamage;
+        if (holding_shield)
         {
-            ProCamera2DShake.Instance.Shake(1);
-            //calculate armour with buffs/debuffs
-            float armour = playerBuff.calculateArmourWithBuffs();
-
-            //check if armour holds up against damage
-            float shieldArmour = inv.getShieldArmour();
-            print(shieldArmour);
-            float healthDamage;
-            if (holding_shield)
-            {
-                healthDamage = damageValue - (armour + shieldArmour);
-
-            }
-            else
-            {
-                healthDamage = damageValue - armour;
-            }
-
-
-            if (healthDamage <= 0 && holding_shield)
-            {
-                //Attack blocked!
-                //Show a number pop up saying blocked
-                numpopup.spawnBlockedPopup(this.transform);
-
-                //knock back enemy / stun, check for enemy class from gameobject
-                if (damager != null && parry_oppurtunity)
-                {
-                    if (damager.GetComponent<Enemy_Generic>() != null)
-                    {
-                        damager.GetComponent<Enemy_Generic>().stunEnemy();
-                    }
-                }
-
-
-            }
-            else if (healthDamage <= 0)
-            {
-                //Not blocked!, but no damage
-                //Show damage number pop up
-                //numpopup.spawnHitPopup(crit, 0f, this.transform, true);
-            }
-            else
-            {
-                //Show damage number pop up
-                numpopup.spawnHitPopup(crit, healthDamage, this.transform, true);
-                CmdChangeHealth(-healthDamage);
-
-                //need to check if that killed us, (method in void update)
-            }
+            healthDamage = damageValue - (armour + shieldArmour);
 
         }
+        else
+        {
+            healthDamage = damageValue - armour;
+        }
 
+
+        if (healthDamage <= 0 && holding_shield)
+        {
+            //Attack blocked!
+            //Show a number pop up saying blocked
+            numpopup.spawnBlockedPopup(this.transform);
+
+            //knock back enemy / stun, check for enemy class from gameobject
+            if (damager != null && parry_oppurtunity)
+            {
+                if (damager.GetComponent<Enemy_Generic>() != null)
+                {
+                    //need to call cmd on player, then that calls stun on enemy
+                    CmdStunEnemy(damager);
+                }
+            }
+
+
+        }
+        else if (healthDamage <= 0)
+        {
+            //Not blocked!, but no damage
+            //Show damage number pop up
+            //numpopup.spawnHitPopup(crit, 0f, this.transform, true);
+        }
+        else
+        {
+            //Show damage number pop up
+            numpopup.spawnHitPopup(crit, healthDamage, this.transform, true);
+            health -= healthDamage; //CmdChangeHealth(-healthDamage);
+
+            //need to check if that killed us, (method in void update)
+        }
 
     }
     //this method is used when applying debuff damage poison
     public void applyHealthDamage(float damageValue)
     {
-        CmdChangeHealth(-damageValue);
+        health -= damageValue;// CmdChangeHealth(-damageValue);
         numpopup.spawnHitPopup(false, damageValue, this.transform, true);
 
     }

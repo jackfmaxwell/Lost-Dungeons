@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HealOverTime
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 5d81c50e52cd0ee4e9bf372f3bd61b34, type: 3}
+  buffName: HealOverTime
   increaseorDecrease: 1
   statToModify: 5
   amount: 10
