@@ -14,6 +14,8 @@ Lost dungeons is a coop dungeon crawler RPG. I focus heavily on allowing the pla
 
 The game is steam integrated and uses the SteamP2P system to host games. Players can join and invite their friends using steam. 
 
+The code heavily refrences the SOLID principles, specifically Single-responsibility princple. A single player class which handles animation, movement, input, combat, skills, is split into many different subclasses which handle only one specific thing. 
+
 ## Next Steps
 
 There is some final fixes to sort out with networking objects, and after that I will create a collection of items to balance as well as new levels that encourage player build specifiaction. 
